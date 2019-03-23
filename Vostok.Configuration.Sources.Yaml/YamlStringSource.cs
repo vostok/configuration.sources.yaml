@@ -14,10 +14,10 @@ namespace Vostok.Configuration.Sources.Yaml
         {
         }
 
-        public YamlStringSource(string json)
+        public YamlStringSource(string yaml)
             : this()
         {
-            Push(json);
+            Push(yaml);
         }
     }
 }
