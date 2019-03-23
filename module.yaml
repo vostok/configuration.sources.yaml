@@ -1,0 +1,17 @@
+notests *default:
+  build:
+    target: Vostok.Configuration.Sources.Yaml.sln
+    configuration: NoTests
+    tool:
+      name: dotnet
+
+  install:
+    - Vostok.Configuration.Sources.Yaml/bin/Release/netstandard2.0/Vostok.Configuration.Sources.Yaml.dll
+
+  deps:
+    - vostok.devtools
+
+full-build > notests:
+  build:
+    target: Vostok.Configuration.Sources.Yaml.sln
+    configuration: Release
