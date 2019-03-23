@@ -23,7 +23,7 @@
         <RepositoryUrl>https://github.com/vostok/configuration.sources.yaml</RepositoryUrl>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="SharpYaml" Version="1.6.5" />
+        <PackageReference Include="SharpYaml" Version="1.6.5"  PrivateAssets="all"/>
     </ItemGroup>
     <ItemGroup>
         <Reference Include="Vostok.Configuration.Abstractions">
@@ -35,4 +35,41 @@
             <HintPath>..\..\vostok.configuration.sources\Vostok.Configuration.Sources\bin\Release\netstandard2.0\Vostok.Configuration.Sources.dll</HintPath>
         </Reference>
     </ItemGroup>
+    <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+        <ILRepackExecutable>"$(MSBuildThisFileDirectory)..\..\vostok.devtools.ilrepack.bin\net40\ILRepack.exe"</ILRepackExecutable>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+        <ILRepackExecutable>dotnet "$(MSBuildThisFileDirectory)../../vostok.devtools.ilrepack.bin/netcoreapp2.1/ILRepack.Core.dll"</ILRepackExecutable>
+    </PropertyGroup>
+    <Target Name="RestorePackageReferences" BeforeTargets="Build">
+        <ItemGroup>
+            <PackageReference Remove="SharpYaml" />
+            <PackageReference Include="SharpYaml" Version="1.6.5" />
+        </ItemGroup>
+    </Target>
+    <Target Name="SetupILRepackProperties" AfterTargets="Build">
+        <PropertyGroup>
+            <PubDirWithoutSlash>$(ProjectDir)bin\Publish\$(TargetFramework)\publish</PubDirWithoutSlash>
+            <PubDir>$(PubDirWithoutSlash)\</PubDir>
+        </PropertyGroup>
+    </Target>
+    <Target Name="CleanPublishDir" AfterTargets="SetupILRepackProperties" Condition="'$(Configuration)' != 'Publish'">
+        <ItemGroup>
+            <OldPubDirFiles Include="$(PubDir)**/*" />
+        </ItemGroup>
+        <Delete Files="@(OldPubDirFiles)" />
+    </Target>
+    <Target Name="Publishing" AfterTargets="CleanPublishDir" Condition="'$(Configuration)' != 'Publish'">
+        <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet publish -c Publish -f $(TargetFramework)" />
+    </Target>
+    <Target Name="RepackAssemblies" AfterTargets="Publishing" Condition="'$(Configuration)' != 'Publish'">
+        <ItemGroup>
+            <MergeAssemblies Include="$(ProjectDir)$(OutputPath)$(AssemblyName).dll" />
+            <MergeAssemblies Include="$(PubDir)*.dll" />
+            <MergeAssemblies Remove="$(PubDir)$(AssemblyName).dll" />
+            <MergeAssemblies Remove="$(PubDir)Vostok.Configuration.Abstractions.dll" />
+            <MergeAssemblies Remove="$(PubDir)Vostok.Configuration.Sources.dll" />
+        </ItemGroup>
+        <Exec WorkingDirectory="$(PubDir)" Command="$(ILRepackExecutable) /internalize /renameInternalized /log:ilrepack.log /lib:&quot;$(PubDirWithoutSlash)&quot; /out:$(ProjectDir)$(OutputPath)$(AssemblyName).dll @(MergeAssemblies->'%(RelativeDir)%(FileName)%(Extension)', ' ')" />
+    </Target>
 </Project>
