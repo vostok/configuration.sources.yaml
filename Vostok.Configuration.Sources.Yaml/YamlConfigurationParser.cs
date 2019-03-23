@@ -61,8 +61,7 @@ namespace Vostok.Configuration.Sources.Yaml
 
         private static ISettingsNode ConvertToNode(Dictionary<object, object> parsedYaml, string name)
         {
-            // (epeshk): skip ambiguous complex mapping key until we come up with something better
-
+            // (epeshk): skip ambiguous complex mapping keys and non-string keys until we come up with something better
             var children = from kvp in parsedYaml
                            let key = kvp.Key as string
                            where key != null
