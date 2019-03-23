@@ -31,18 +31,18 @@ vegetables:
                         "fruits",
                         new[]
                         {
-                            new ValueNode("0", "Apple"),
-                            new ValueNode("1", "Orange"),
-                            new ValueNode("2", "Strawberry"),
-                            new ValueNode("3", "Mango")
+                            new ValueNode("Apple"),
+                            new ValueNode("Orange"),
+                            new ValueNode("Strawberry"),
+                            new ValueNode("Mango")
                         }),
                     new ArrayNode(
                         "vegetables",
                         new[]
                         {
-                            new ValueNode("0", "Potato"),
-                            new ValueNode("1", "Eggplant"),
-                            new ValueNode("2", "Cabbage")
+                            new ValueNode("Potato"),
+                            new ValueNode("Eggplant"),
+                            new ValueNode("Cabbage")
                         })
                 });
 
@@ -63,10 +63,10 @@ vegetables:
             var expected = new ArrayNode(
                 new[]
                 {
-                    new ValueNode("0", "Apple"),
-                    new ValueNode("1", "Orange"),
-                    new ValueNode("2", "Strawberry"),
-                    new ValueNode("3", "Mango")
+                    new ValueNode("Apple"),
+                    new ValueNode("Orange"),
+                    new ValueNode("Strawberry"),
+                    new ValueNode("Mango")
                 });
 
             settingsNode.Should().Be(expected);
