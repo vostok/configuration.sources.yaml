@@ -9,6 +9,8 @@ notests *default:
     - Vostok.Configuration.Sources.Yaml/bin/Release/netstandard2.0/Vostok.Configuration.Sources.Yaml.dll
 
   deps:
+    - vostok.configuration.sources
+    - vostok.configuration.abstractions
     - vostok.devtools
 
 full-build > notests:
