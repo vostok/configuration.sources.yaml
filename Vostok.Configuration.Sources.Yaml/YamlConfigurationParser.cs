@@ -75,7 +75,7 @@ namespace Vostok.Configuration.Sources.Yaml
             var children = new ISettingsNode[parsedYaml.Count];
 
             for (var i = 0; i < children.Length; i++)
-                children[i] = ConvertToNode(parsedYaml[i], i.ToString());
+                children[i] = ConvertToNode(parsedYaml[i]);
 
             return new ArrayNode(name, children);
         }
