@@ -1,0 +1,9 @@
+static Vostok.Configuration.Sources.Yaml.YamlConfigurationParser.Parse(string content) -> Vostok.Configuration.Abstractions.SettingsTree.ISettingsNode
+static Vostok.Configuration.Sources.Yaml.YamlConfigurationParser.Parse(string content, string rootName) -> Vostok.Configuration.Abstractions.SettingsTree.ISettingsNode
+Vostok.Configuration.Sources.Yaml.YamlConfigurationParser
+Vostok.Configuration.Sources.Yaml.YamlFileSource
+Vostok.Configuration.Sources.Yaml.YamlFileSource.YamlFileSource(string filePath) -> void
+Vostok.Configuration.Sources.Yaml.YamlFileSource.YamlFileSource(Vostok.Configuration.Sources.File.FileSourceSettings settings) -> void
+Vostok.Configuration.Sources.Yaml.YamlStringSource
+Vostok.Configuration.Sources.Yaml.YamlStringSource.YamlStringSource() -> void
+Vostok.Configuration.Sources.Yaml.YamlStringSource.YamlStringSource(string yaml) -> void
