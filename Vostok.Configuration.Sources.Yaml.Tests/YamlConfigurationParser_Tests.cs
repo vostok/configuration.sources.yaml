@@ -7,6 +7,25 @@ namespace Vostok.Configuration.Sources.Yaml.Tests
 {
     internal class YamlConfigurationParser_Tests
     {
+        [TestCase("\r")]
+        [TestCase("\n")]
+        [TestCase("\r\n")]
+        public void Should_Accept_Different_LineBreak(string lineBreak)
+        {
+            var yaml = @"
+a: 123
+b: qqq
+c: dhjdfjdfj";
+
+            yaml = string.Join(lineBreak, yaml.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries));
+
+            var settingsNode = YamlConfigurationParser.Parse(yaml);
+
+            settingsNode["a"].Value.Should().Be("123");
+            settingsNode["b"].Value.Should().Be("qqq");
+            settingsNode["c"].Value.Should().Be("dhjdfjdfj");
+        }
+
         [Test]
         public void Should_parse_lists()
         {
