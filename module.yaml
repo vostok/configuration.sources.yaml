@@ -7,6 +7,16 @@ notests *default:
 
   install:
     - Vostok.Configuration.Sources.Yaml/bin/Release/netstandard2.0/Vostok.Configuration.Sources.Yaml.dll
+    - groups:
+        - target-framework: "netstandard2.0"
+          libraries:
+            - Vostok.Configuration.Sources.Yaml/bin/Release/netstandard2.0/Vostok.Configuration.Sources.Yaml.dll
+        - target-framework: "net6.0"
+          libraries:
+            - Vostok.Configuration.Sources.Yaml/bin/Release/net6.0/Vostok.Configuration.Sources.Yaml.dll
+        - target-framework: "net8.0"
+          libraries:
+            - Vostok.Configuration.Sources.Yaml/bin/Release/net8.0/Vostok.Configuration.Sources.Yaml.dll
 
   deps:
     - vostok.configuration.sources
@@ -18,6 +28,21 @@ full-build > notests:
     - -vostok.devtools
     - vostok.devtools@with-net6.0
 
+  install:
+    - Vostok.Configuration.Sources.Yaml/bin/Release/netstandard2.0/Vostok.Configuration.Sources.Yaml.dll
+    - groups:
+        - target-framework: "netstandard2.0"
+          libraries:
+            - Vostok.Configuration.Sources.Yaml/bin/Release/netstandard2.0/Vostok.Configuration.Sources.Yaml.dll
+        - target-framework: "net6.0"
+          libraries:
+            - Vostok.Configuration.Sources.Yaml/bin/Release/net6.0/Vostok.Configuration.Sources.Yaml.dll
+        - target-framework: "net8.0"
+          libraries:
+            - Vostok.Configuration.Sources.Yaml/bin/Release/net8.0/Vostok.Configuration.Sources.Yaml.dll
+
   build:
     target: Vostok.Configuration.Sources.Yaml.sln
     configuration: Release
+    tool:
+      name: dotnet
