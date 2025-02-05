@@ -24,10 +24,6 @@ notests *default:
     - vostok.devtools
 
 full-build > notests:
-  deps:
-    - -vostok.devtools
-    - vostok.devtools@with-net6.0
-
   install:
     - Vostok.Configuration.Sources.Yaml/bin/Release/netstandard2.0/Vostok.Configuration.Sources.Yaml.dll
     - groups:
